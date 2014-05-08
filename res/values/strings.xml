@@ -9,5 +9,6 @@
     <string name="title_activity_webcome">WebcomeActivity</string>
     <string name="title_activity_base_wapper">BaseWapperActivity</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_wbottles_out">WBottlesOutActivity</string>
 
 </resources>

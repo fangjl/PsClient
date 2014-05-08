@@ -10,7 +10,7 @@ public class HomeActivity extends BaseWapperActivity {
 	@Override
 	protected void loadViewLayout() {
 		// TODO Auto-generated method stub
-		super.setContentView(R.layout.fragment_home);
+		super.setContentView(R.layout.activity_home);
 		
 	}
 

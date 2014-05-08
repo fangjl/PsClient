@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- main -->
+	<item type="id" name="btu_id_heavy_bottles_out">false</item>
+	<item type="id" name="btu_id_heavy_bottles_in">false</item>
+	<item type="id" name="btu_id_heavy_bottles_sign">false</item>
+	
+	
+	<item type="id" name="btu_id_emtpy_bottles_in">false</item>
+	<item type="id" name="btu_id_emtpy_bottles_out">false</item>
+	
+	
+	
+	
+	
+</resources>

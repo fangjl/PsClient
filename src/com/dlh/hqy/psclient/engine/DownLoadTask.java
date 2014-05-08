@@ -1,5 +1,4 @@
 package com.dlh.hqy.psclient.engine;
-
 import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,10 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
-
 import com.dlh.hqy.psclient.util.Logger;
-
-
 /**
  * 下载
  * 

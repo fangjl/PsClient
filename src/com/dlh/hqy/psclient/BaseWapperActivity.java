@@ -1,67 +1,44 @@
 package com.dlh.hqy.psclient;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
+import com.dlh.hqy.psclient.application.PSApplication;
+import com.dlh.hqy.psclient.util.ThreadPoolManager;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
-public abstract class BaseWapperActivity extends ActionBarActivity implements OnClickListener {
-	
-	
+public abstract class BaseWapperActivity extends Activity implements OnClickListener {
 	private LinearLayout layout_content;
-
+	/** ContentView */
+	private View inflate;
+	private ThreadPoolManager threadPoolManager;
+	protected Context context;
+	private PSApplication PSApplication;
 	
+	
+	
+	
+	
+	
+	public PSApplication getPSApplication() {
+		return PSApplication;
+	}
+
+	public BaseWapperActivity(){
+		//threadPoolManager = ThreadPoolManager.getInstance();
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_base_wapper);
-
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		super.setContentView(R.layout.activity_base_wapper);
+		layout_content = (LinearLayout) super.findViewById(R.id.frame_content);
+	//	context = getApplicationContext();
+		PSApplication = (PSApplication) getApplication();
+		
+		
 		
 		initView();
-	}
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.base_wapper, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_base_wapper,
-					container, false);
-			return rootView;
-		}
 	}
 	
 	/**
@@ -77,6 +54,30 @@ public abstract class BaseWapperActivity extends ActionBarActivity implements On
 		setListener();
 		processLogic();
 	}
+	
+	
+	
+	
+	
+	@Override
+	public void setContentView(int layoutResID) {
+		inflate = getLayoutInflater().inflate(layoutResID, null);
+		setContentView(inflate);
+	}
+	@Override
+	public void setContentView(View view) {
+		layout_content.removeAllViews();
+		layout_content.addView(inflate);
+	}
+	
+	
+	
+	@Override
+	public View findViewById(int id) {
+		return inflate.findViewById(id);
+	}
+	
+	
 	protected abstract void findViewById();
 	protected abstract void loadViewLayout();
 	protected abstract void processLogic();
@@ -89,4 +90,26 @@ public abstract class BaseWapperActivity extends ActionBarActivity implements On
 		
 	}
 
+	
+	
+	
+	
+	
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		
+		if(PSApplication.mLocationClient!=null && PSApplication.mLocationClient.isStarted()){
+			PSApplication.mLocationClient.stop();
+		}
+		//PSApplication.removeActvity(this);
+		context = null;
+		threadPoolManager = null;
+		layout_content = null;
+		inflate = null;
+		PSApplication = null;
+	}
+	
+	
 }
